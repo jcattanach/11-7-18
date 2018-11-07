@@ -3,8 +3,10 @@
   <head>
     <meta charset="utf-8">
     <title>Lists</title>
+
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/styles.css"></link>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
     <div class="navBar">
@@ -14,16 +16,16 @@
         <li><a href='/create-list'>Create a List</a></li>
       </ul>
     </div>
-    <h1>Grocery Lists</h1>
+    <h1><u>Grocery Lists</u></h1>
     <ul>
       {{#lists}}
 
-      <li>
-        <form action='/show-lists' method="POST">
+      <li class='storeLI'>
+        <form class="customForm" action='/show-lists' method="POST">
           <input type='hidden' name='listID' value='{{id}}'/>
           <h3>{{name}}</h3>
-          <p> {{street}} {{city}} {{state}}</p>
-          <input type="submit" value="Delete List" />
+          <p> {{street}}, {{city}} {{state}}</p>
+          <input class='btnDelete' type="submit" value="Delete List" />
         </form>
       </li>
 

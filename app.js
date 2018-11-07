@@ -49,8 +49,28 @@ app.get('/show-lists', (req,res) => {
   })
 })
 
+app.get('/register', function(req,res){
+  res.render('register')
+})
+
+app.post('/register', function(req,res){
+  let registerUsername = req.body.username
+  let registerPassword = req.body.password
+})
+
+app.get('/login', function(req,res){
+  res.render('login')
+})
+
+app.post('/login', function(req,res){
+  let loginUsername = req.body.username
+  let loginPassword = req.body.password
+
+  req.session.user = loginUsername
+})
+
 app.get('/', (req,res) => {
-  res.redirect('/show-lists')
+  res.redirect('/login')
 })
 
 app.listen(3000, () => console.log('server is running...')

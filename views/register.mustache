@@ -2,10 +2,11 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Lists</title>
+    <title>Register</title>
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/styles.css"></link>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
   </head>
   <body>
     <div class="navBar">
@@ -15,15 +16,11 @@
         <li><a href='/create-list'>Create a List</a></li>
       </ul>
     </div>
-    <h1><u>Create a List</u></h1>
-
-    <form action="/create-list" method = "POST">
-        <input type="text" name = "name" placeholder="Enter store name"/>
-        <input type="text" name = "street" placeholder="Enter street name"/>
-        <input type="text" name = "city" placeholder="Enter city"/>
-        <input type="text" name = "state" placeholder="Enter state"/>
-        <input class="btnSubmit" type="submit" value="Create List" />
+    <h1><u>Register</u></h1>
+    <form action="/register" method = "POST">
+        <input type="text" name = "username" placeholder="Enter Username"/>
+        <input type="password" name = "password" placeholder="Enter Password"/>
+        <input type="submit" value="Create Account" />
     </form>
-
   </body>
 </html>
