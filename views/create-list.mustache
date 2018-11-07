@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Lists</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/styles.css"></link>
+  </head>
+  <body>
+    <div class="navBar">
+      <ul>
+        <li><a href='/login'>Login</a></li>
+        <li><a href='/show-lists'>View Lists</a></li>
+        <li><a href='/create-list'>Create a List</a></li>
+      </ul>
+    </div>
+    <h1>Create List</h1>
+
+    <form action="/create-list" method = "POST">
+        <input type="text" name = "name" placeholder="Enter store name"/>
+        <input type="text" name = "street" placeholder="Enter street name"/>
+        <input type="text" name = "city" placeholder="Enter city"/>
+        <input type="text" name = "state" placeholder="Enter state"/>
+        <input type="submit" value="Create List" />
+    </form>
+
+  </body>
+</html>
