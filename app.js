@@ -3,7 +3,9 @@ const mustacheExpress = require('mustache-express')
 const bodyParser = require('body-parser')
 const app = express()
 const models = require('./models')
+const sessions = require('express-session')
 
+app.use(sessions({ secret: 'asdfdsa', saveUninitialized: false, resave: false}))
 app.use(express.static('css'))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.engine('mustache',mustacheExpress())
@@ -56,6 +58,15 @@ app.get('/register', function(req,res){
 app.post('/register', function(req,res){
   let registerUsername = req.body.username
   let registerPassword = req.body.password
+
+  let userInfo = models.user.build({
+    name: registerUsername,
+    password: registerPassword
+  })
+
+  userInfo.save().then(function(){
+    res.redirect('/login')
+  })
 })
 
 app.get('/login', function(req,res){
@@ -66,7 +77,9 @@ app.post('/login', function(req,res){
   let loginUsername = req.body.username
   let loginPassword = req.body.password
 
-  req.session.user = loginUsername
+  models.user.findAll().then(function(userInfo){
+    res.json(userInfo)
+  })
 })
 
 app.get('/', (req,res) => {
