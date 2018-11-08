@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>List</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/styles.css"></link>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <div class="navBar">
+      <ul>
+        <li><a href='/login'>Login</a></li>
+        <li><a href='/show-lists'>View Lists</a></li>
+        <li><a href='/create-list'>Create a List</a></li>
+      </ul>
+    </div>
+    <h1><u>{{name}}</u></h1>
+      <div>
+        <form action="/add-item" method = "POST">
+            <input type='hidden' name='storeID' value='{{storeID}}'/>
+            <input type="text" name = "itemName" placeholder="Enter item name"/>
+            <input class="btnSubmit" type="submit" value="Add Item" />
+        </form>
+      </div>
+      <ul>
+      {{#lists}}
+      <li class='storeLI'>
+        <form class="items" action='/delete-item' method="POST">
+          <input type='hidden' name='storeID' value='{{storeID}}'/>
+          <input type='hidden' name='itemName' value='{{item}}'/>
+          <label>{{item}}</label>
+          <input class='btnDelete' type="submit" value="Delete Item" />
+        </form>
+      </li>
+      {{/lists}}
+    </ul>
+  </body>
+</html>

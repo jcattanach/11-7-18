@@ -16,6 +16,48 @@ app.get('/create-list', (req,res) => {
   res.render('create-list')
 })
 
+app.post('/delete-item', (req,res) =>{
+  storeID = req.body.storeID
+  itemName = req.body.itemName
+  models.items.destroy({
+    where : {
+      item : itemName
+    }
+  })
+  res.redirect(`/show-lists/${storeID}`)
+})
+
+app.post('/add-item', function(req,res){
+  itemName = req.body.itemName
+  storeID = req.body.storeID
+
+  let itemInfo = models.items.build({
+    item: itemName,
+    storelistid: storeID
+  })
+
+  itemInfo.save().then(function(){
+    res.redirect(`/show-lists/${storeID}`)
+  })
+})
+
+app.get('/show-lists/:storeID', function(req,res){
+  storeID = req.params.storeID
+  models.Grocery.findOne({
+    where : {
+      id : storeID
+    },
+    include: [
+      {
+        model : models.items,
+        as : 'items'
+      }
+    ]
+  }).then(function(store){
+  res.render('list-details', { lists : store.items, name : store.name, storeID : store.id})
+  })
+})
+
 app.post('/create-list', (req,res) => {
   let storeName = req.body.name
   let storeStreet = req.body.street
@@ -37,6 +79,11 @@ app.post('/create-list', (req,res) => {
 app.post('/show-lists', (req,res) => {
   let listID = req.body.listID
 
+  models.items.destroy({
+    where : {
+      storelistid : listID
+    }
+  })
   models.Grocery.destroy({
     where : {
       id : listID

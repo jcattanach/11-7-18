@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Grocery.associate = function(models) {
     // associations can be defined here
+    Grocery.hasMany(models.items, { as : 'items', foreignKey : 'storelistid'})
   };
   return Grocery;
 };
