@@ -12,8 +12,20 @@ app.engine('mustache',mustacheExpress())
 app.set('views','./views')
 app.set('view engine','mustache')
 
+app.get('/logout', (req,res) =>{
+  req.session.destroy(function(err){
+
+  })
+
+  res.redirect('/login')
+})
+
 app.get('/create-list', (req,res) => {
+  if(req.session.userId == null){
+    res.redirect('/login')
+  } else {
   res.render('create-list')
+}
 })
 
 app.post('/delete-item', (req,res) =>{
@@ -63,12 +75,14 @@ app.post('/create-list', (req,res) => {
   let storeStreet = req.body.street
   let storeCity = req.body.city
   let storeState = req.body.state
+  let userId = req.session.userId
 
   let listInfo = models.Grocery.build({
     name: storeName,
     street: storeStreet,
     city: storeCity,
-    state: storeState
+    state: storeState,
+    userID: userId
   })
 
   listInfo.save().then(function(){
@@ -93,10 +107,23 @@ app.post('/show-lists', (req,res) => {
 })
 
 app.get('/show-lists', (req,res) => {
-  models.Grocery.findAll().then(function(lists){
-  res.render('show-lists', { lists : lists })
+  if(req.session.userId == null){
+    res.redirect('/login')
+  } else {
+  models.user.findOne({
+    where : {
+      id : req.session.userId
+    },
+    include: [
+      {
+        model : models.Grocery,
+        as : 'stores'
+      }
+    ]
+  }).then(function(user){
+  res.render('show-lists', { lists : user.stores, userName : user.name })
   })
-})
+}})
 
 app.get('/register', function(req,res){
   res.render('register')
@@ -124,10 +151,22 @@ app.post('/login', function(req,res){
   let loginUsername = req.body.username
   let loginPassword = req.body.password
 
-  models.user.findAll().then(function(userInfo){
-    res.json(userInfo)
+  models.user.findOne({
+    where : {
+      name : loginUsername
+    }
+  }).then(function(userInfo){
+    if(userInfo.password == loginPassword){
+      console.log('login succesful')
+      req.session.userId = userInfo.id
+      res.redirect('/show-lists')
+
+    } else {
+      res.redirect('/login')
+    }
   })
-})
+
+  })
 
 app.get('/', (req,res) => {
   res.redirect('/login')

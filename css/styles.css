@@ -12,9 +12,16 @@
 .inputForm input {
   padding: 2px;
 }
-
+.navBar li {
+  padding-left: 20px;
 }
 
+}
+@media (min-width: 481px) {
+  .navBar li {
+    padding-left: 40px;
+  }
+}
 
 * {
   margin: 0px;
@@ -56,7 +63,6 @@ body {
 
 .navBar li {
   display: inline-grid;
-  padding-left: 40px;
 }
 
 .btnSubmit {
