@@ -1,2 +1,2 @@
-# 11-7-18
-Grocery List assignment using node, express, mustache, postgres, sequelize
+
+Grocery List app using node, express, mustache, postgres, sequelize
